@@ -7,25 +7,27 @@
     <h1>Customer Information</h1>
 
     <div class="row g-3">
-        <form method="POST" action="" enctype="multipart/form-data">
+      {% include 'partials/messages.html' %}
+        <form method="POST" action="/" enctype="multipart/form-data">
+          {% csrf_token %}
           <div class="mb-3">
             <label for="FirstName" class="form-label">First Name</label>
-            <input type="text" class="form-control" id="FirstName" required="">
+            <input type="text" name="first_name" class="form-control" id="FirstName" required="">
           </div>
 
           <div class="mb-3">
             <label for="LastName" class="form-label">Last Name</label>
-            <input type="text" class="form-control" id="LastName" required="">
+            <input type="text" name="last_name" class="form-control" id="LastName" required="">
           </div>
 
            <div class="mb-3">
             <label for="DateOfBirth" class="form-label">Date of Birth</label>
-            <input type="date" class="form-control" id="DateOfBirth" required="">
+            <input type="date" name="date_of_birth" class="form-control" id="DateOfBirth" required="">
           </div>
 
           <div class="mb-3">
             <label for="formFile" class="form-label">Upload</label>
-            <input class="form-control" name="financial_income" type="file" id="formFile" required="">
+            <input class="form-control" name="uploaded_file" type="file" id="formFile" required="">
           </div>
 
 
