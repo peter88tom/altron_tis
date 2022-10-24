@@ -22,6 +22,34 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
     <script>
 
+    // Get lastest income and expenses
+    $.ajax({
+          type:"GET",
+          url: "/latest_income_and_expenses",
+          success: function(data){
+
+           const months = []
+           const income = []
+           const expenses = []
+
+            $.map(data, function(item, index){
+
+               // Store month, income and expenses into array
+               months.push(item.month)
+               income.push(item.income)
+               expenses.push(item.expense)
+
+            });
+
+            // Call function to draw graph
+            draw_graph(months, income, expenses);
+          }
+    });
+
+
+// Function to draw graph
+function draw_graph(months, income, expenses){
+
 (() => {
   'use strict'
 
@@ -31,36 +59,10 @@
   const myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec'
-      ],
+      labels: months,
       datasets: [{
 
-        data: [
-          15339,
-          21345,
-          18483,
-          24003,
-          23489,
-          24092,
-          12034,
-          3050,
-          1000,
-          4503,
-          900,
-          7800,
-        ],
+        data: income,
 
         lineTension: 0,
         backgroundColor: 'rgba(153, 102, 255, 0.2)',
@@ -71,20 +73,7 @@
       },
 
       {
-        data: [
-          1339,
-          2345,
-          18483,
-          24003,
-          23489,
-          24092,
-          12034,
-          3050,
-          1000,
-          4503,
-          900,
-          7800,
-        ],
+        data: expenses,
 
         lineTension: 0,
         backgroundColor: 'rgba(54, 162, 235, 0.2)',
@@ -104,7 +93,7 @@
         }]
       },
       legend: {
-        display: false
+        display: true
       },
 
       title: {
@@ -115,6 +104,8 @@
     }
   })
 })()
+
+}
 
     </script>
     </body>

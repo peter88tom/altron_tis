@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.contrib import messages
+from django.http import JsonResponse
 from app.forms import CustomerInformationForm
 from app.models import CustomerFinancialInformation, CustomerInformation
+from django.views.decorators.csrf import csrf_exempt
 import openpyxl
 
 # Create your views here.
@@ -47,6 +47,23 @@ def post_new_user_information(request):
 
     else:
       print("Form is not valid")
-      messages.warning(request, 'Form is not valid')
       return redirect('/')
   return redirect('/')
+
+
+
+@csrf_exempt
+def get_latest_income_and_expenses(request):
+  data = []
+  data_months = CustomerFinancialInformation.objects.all().order_by('-id')[:12][::-1]
+  for m in data_months:
+    k = {
+      'month':m.month,
+      'income':m.income,
+      'expense': m.expenses,
+    }
+    data.append(k)
+  try:
+    return JsonResponse(data, safe=False)
+  except Exception as e:
+    return JsonResponse(data, safe=False)

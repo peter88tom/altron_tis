@@ -8,7 +8,7 @@
 
     <div class="row g-3">
 
-        <form method="POST" action="{% url 'add-user-info' %}" enctype="multipart/form-data">
+        <form method="POST" action="{% url 'add-user-info' %}" enctype="multipart/form-data" id="NewCustomerInformation">
           {% csrf_token %}
           <div class="mb-3">
             <label for="FirstName" class="form-label">First Name</label>
@@ -38,6 +38,7 @@
 
     <hr>
 
+<!--    Display graph-->
     <div class="row g-5">
       <div class="col-md-12">
         <h2>Customer Income and Expenditure</h2>
