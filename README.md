@@ -1,4 +1,4 @@
-#How is the solution  implemented
+# How is the solution  implemented
 A customer will fill in their information, then submit. Things that will happen after submitting:
 1. Customer information(first_name, last_name, dob, and the uploaded excel file) will be saved to the SQLite database
 2. Once the information are saved, the application will READ the data from the uploaded EXCEL file and save the data to the database
